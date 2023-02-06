@@ -15,29 +15,32 @@ echo "
 \___/_/ /_/\___/\___/_/|_|\___/_/     By riazaka
 "
 
-# Put file with subdomains
-subs_file="exmple.txt"
+# Input file with subdomains
+input_file="subdomain_exmple.txt"
 
-# Put file for alive subdomains
-alive_subs_file="exmple.txt"
+# Output file for alive subdomains
+output_file="alive_subdomains_exmple.txt"
 
 # Temporary file for filtered subdomains
 temp_file="temp.txt"
 
 # Filter out subdomains with invalid characters
-grep -E "^[a-zA-Z0-9.-]+$" $subs_file > $temp_file
+grep -E "^[a-zA-Z0-9.-]+$" $input_file > $temp_file
 
 # Check the status code of each filtered subdomain
 while read subdomain; do
   status_code=$(curl -s -o /dev/null -w "%{http_code}" $subdomain)
   if [ $status_code -eq 200 ]; then
-    echo $subdomain >> $alive_subs_file
+    echo "$subdomain ====> Alive"
+    echo $subdomain >> $output_file
+  else
+    echo "$subdomain ====> Not Alive"
   fi
 done < $temp_file
 
 # Remove the temporary file
 rm $temp_file
 
-# Print the number of alive subdomains that we found
-count=$(wc -l < $alive_subs_file)
+# Print the number of alive subdomains
+count=$(wc -l < $output_file)
 echo "Found $count alive subdomains"
