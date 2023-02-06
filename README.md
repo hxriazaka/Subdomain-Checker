@@ -5,7 +5,7 @@ A subdomain checking tool for analyzing the status of subdomains. The tool filte
 
 # How To Use :
 
-1 - Edit the ./subdomain-checker with "sudo nano ./subdomain-checker.sh" and add your own parameters
+- Edit the ./subdomain-checker with "sudo nano ./subdomain-checker.sh" and add your own parameters
 - Run ./subdomain-checker.sh
 - Happy Hacking!
 
